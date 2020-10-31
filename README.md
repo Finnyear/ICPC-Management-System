@@ -50,6 +50,7 @@
 ​	输出N（队伍总数）行，每行以
 
 	队名 排名 解题数 总罚时 A B C ...
+
 的格式表示一支队伍的情况，其中“A B C ...”表示每一题的情况，有以下三种可能：
     
     +x 该题未被冻结且已经通过。x表示该题NO的次数，如果x为0，则显示“+”而不是“+0”。
@@ -72,7 +73,7 @@ ADDTEAM team_name
 START DURATION duration_time PROBLEM problem_count
 ```
 
-​	开始比赛，比赛时间count为闭区间$[1,duration\_time]$，题号范围为前$problem\_count$个大写英文字母。成功开始则输出`[Info]Competition starts.` ，若比赛已开始,输出`[Error]Start failed: competition has started.`
+​	开始比赛，比赛时间count为闭区间[1,duration_time]，题号范围为前problem_count个大写英文字母。成功开始则输出`[Info]Competition starts.` ，若比赛已开始,输出`[Error]Start failed: competition has started.`
 
 ### 提交题目
 
@@ -80,14 +81,14 @@ START DURATION duration_time PROBLEM problem_count
 SUBMIT problem_name BY team_name WITH submit_status AT time
 ```
 
-​	保证输入合法，记录$team\_name$在$time$时刻对题目$problem\_name$的一次提交，评测状态为$submit\_status$。$submit\_status$可能有以下情况：
+​	保证输入合法，记录team_name在time时刻对题目problem_name的一次提交，评测状态为submit_status。submit_status可能有以下情况：
 
-- $Accepted$
-- $Wrong\_Answer$
-- $Runtime\_Error$
-- $Time\_Limit\_Exceed$
+- Accepted
+- Wrong_Answer
+- Runtime_Error
+- Time_Limit_Exceed
 
-除了$Accepted$算做通过外，剩下的状态均不算做通过。保证$time$按照提交出现的顺序单调上升。
+除了Accepted算做通过外，剩下的状态均不算做通过。保证time按照提交出现的顺序单调上升。
 
 ### 刷新榜单
 
@@ -116,7 +117,7 @@ SCROLL
 
 	team_name1 team_name2 solved_number penalty_time
 
-的格式输出。$team\_name1$表示题目解冻导致排名上升的队伍，$team\_name2$表示排名被$team\_name1$取代的队伍,$solved\_number$和$penalty\_time$为$team\_name1$新的解题数和罚时；最后输出滚榜后的榜单。
+的格式输出。team_name1表示题目解冻导致排名上升的队伍，team_name2表示排名被team_name1取代的队伍,solved_number和penalty_time为team_name1新的解题数和罚时；最后输出滚榜后的榜单。
 
 ​​	若未封榜，则输出`[Error]Scroll failed: scoreboard has not been frozen.`
 
@@ -127,11 +128,11 @@ QUERY_RANKING team_name
 ```
 
 ​	查询对应队伍排名。若队伍不存在，则输出`[Error]Query ranking failed: cannot find the team.`。
-成功则输出`[Info]Complete query ranking.`，若处在封榜状态，则需要先输出`[Warning]Scoreboard is brozen. The ranking may be inaccurate until it were scrolled `；然后不论是否封榜，输出一行，以
+成功则输出`[Info]Complete query ranking.`，若处在封榜状态，则需要先输出`[Warning]Scoreboard is frozen. The ranking may be inaccurate until it were scrolled. `；然后不论是否封榜，输出一行，以
 
 	team_name NOW AT RANKING ranking
 
-的格式输出上一次刷新榜单后的队伍排名。$ranking$为查询得到的队伍排名。
+的格式输出上一次刷新榜单后的队伍排名。ranking为查询得到的队伍排名。
 
 
 	
@@ -155,7 +156,7 @@ QUERY_SUBMISSION Opelucid_Gym WHERE PROBLEM=M AND STATUS=Runtime_Error //查询O
 
 	team_name problem_name status time
 
-的格式输出。$time$为该次提交的时间。注意输出按照提交顺序的升序排列（即先提交的记录最先输出）。
+的格式输出。time为该次提交的时间。注意输出按照提交顺序的升序排列（即先提交的记录最先输出）。
 
 若队伍不存在，则输出`[Error]Query submission failed: cannot find the team.`。
 
@@ -171,5 +172,6 @@ END
 
 ## 5 数据范围
 
-对于$60\%$的数据，队伍总数$N \leq 500$，操作次数$Opt \leq 10000$。
-对于$100\%$的数据，队伍总数$N \leq 10000$，题目总数$M \leq 26$，比赛时长$T \leq 100000$，操作次数$Opt \leq 300000$，刷新榜单次数$Opt_{flush} \leq 1000$。封榜次数$Opt_{freeze} \leq 10$。
+对于60%的数据，队伍总数N <= 500，操作次数 <= 10000。
+
+对于100%的数据，队伍总数N <= 10000，题目总数M <= 26，比赛时长T <= 100000，操作次数Opt <= 300000，刷新榜单次数Opt_flush <= 1000。封榜次数Opt_freeze <= 10。
