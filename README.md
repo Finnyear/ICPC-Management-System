@@ -1,5 +1,7 @@
 # ICPC Management System
 
+(当前文档正处于，并将长期处于非正式版本，因此仅供参考，对此作业的任何疑问欢迎提出issue。)
+
 ## 1 背景
 
 ​	**ICPC** （国际大学生程序设计竞赛）由 ICPC 基金会举办的一项旨在展示大学生创新能力、团队精神和在压力下编写程序、分析和解决问题能力的年度竞赛，是最具影响力的大学生计算机竞赛。在ICPC比赛中，每个队伍尝试在错误提交次数最少的情况下解答出最多的问题，获胜者为正确解答题目最多且总罚时最少的队伍。
@@ -140,23 +142,22 @@ QUERY_RANKING team_name
 ### 查询队伍提交情况
 
 ```
-QUERY_SUBMISSION team_name [WHERE STATUS=status AND PROBLEM=problem_name]
+QUERY_SUBMISSION team_name WHERE PROBLEM=problem_name AND STATUS=status
 ```
 
-​	查询对应队伍的提交情况，方括号中是可选内容，用于按照对应条件匹配。可参考以下合法示例：
+​	查询对应队伍的满足条件的最后一次提交。可参考以下合法示例：
 
 ```SQL
-QUERY_SUBMISSION Team_Rocket //查询Team_Rocket的所有提交
-QUERY_SUBMISSION Team_Plasma WHERE STATUS=Accepted // 查询Team_Plasma的所有Accepted的提交
-QUERY_SUBMISSION Pokemon_League WHERE PROBLEM=A // 查询Pokemon_League的所有题目A的提交
-QUERY_SUBMISSION Opelucid_Gym WHERE STATUS=Runtime_Error AND PROBLEM=C //查询Opelucid_Gym队所有C题状态为Runtime_Error的提交
-QUERY_SUBMISSION Opelucid_Gym WHERE PROBLEM=M AND STATUS=Runtime_Error //查询Opelucid_Gym队所有M题状态为Runtime_Error的提交
+QUERY_SUBMISSION Team_Rocket WHERE PROBLEM=ALL AND STATUS=ALL//查询Team_Rocket的最后一次提交
+QUERY_SUBMISSION Team_Plasma WHERE PROBLEM=ALL AND STATUS=Accepted// 查询Team_Plasma的最后一次状态为Accepted的提交
+QUERY_SUBMISSION Pokemon_League WHERE PROBLEM=A AND STATUS=ALL // 查询Pokemon_League的最后一次对题目A的提交
+QUERY_SUBMISSION Opelucid_Gym WHERE PROBLEM=M AND STATUS=Runtime_Error //查询Opelucid_Gym队的最后一次对M题状态为Runtime_Error的提交
 ```
-成功则输出`[Info]Complete query submission.`,若无满足条件的提交，输出`Cannot find any submission.`。否则输出一行表示提交时间最晚的一次满足条件的提交，以
+成功则输出`[Info]Complete query submission.`。若无满足条件的提交，输出`Cannot find any submission.`，否则输出一行表示最后一次满足条件的提交，以
 
 	team_name problem_name status time
 
-的格式输出。time为该次提交的时间。
+的格式输出。problem_name为该次提交的题目编号，status为该次提交的状态，time为该次提交的时间。保证询问中的problem_name与status合法。
 
 若队伍不存在，则输出`[Error]Query submission failed: cannot find the team.`。
 
@@ -167,7 +168,7 @@ QUERY_SUBMISSION Opelucid_Gym WHERE PROBLEM=M AND STATUS=Runtime_Error //查询O
 END
 ```
 
-​	结束比赛。需输出`[Info]Competition ends.`保证结束比赛时排行榜不处于封榜状态，且之后没有任何操作。
+​	结束比赛。需输出`[Info]Competition ends.`保证结束比赛时比赛已经开始、排行榜不处于封榜状态，且之后没有任何操作。
 ​	
 
 ## 5 数据范围
@@ -175,3 +176,22 @@ END
 对于60%的数据，队伍总数N <= 500，操作次数 <= 10000。
 
 对于100%的数据，队伍总数N <= 10000，题目总数M <= 26，比赛时长T <= 100000，操作次数Opt <= 300000，刷新榜单次数Opt_flush <= 1000。封榜次数Opt_freeze <= 10。
+
+
+## 6 Q&A
+
+- 提交时间会有相同的吗？
+  
+  会，单调上升不是严格的，可能出现平台。
+
+- 滚榜时每次选择队伍依照的排名是动态变化的吗？
+  
+  是的。
+
+- 封榜后的提交可以被查询提交情况查询到吗？
+
+  可以的。
+
+- 第一次刷新榜单前的排名的依据是什么？
+
+  队伍名称的字典序。
