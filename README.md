@@ -75,7 +75,7 @@ ADDTEAM team_name
 START DURATION duration_time PROBLEM problem_count
 ```
 
-​	开始比赛，比赛时间count为闭区间[1,duration_time]，题号范围为前problem_count个大写英文字母。成功开始则输出`[Info]Competition starts.` ，若比赛已开始,输出`[Error]Start failed: competition has started.`
+​	开始比赛，比赛时间count为闭区间[1,duration_time]，题号范围为前problem_count个大写英文字母。成功开始则输出`[Info]Competition starts.` ，若比赛已开始,输出`[Error]Start failed: competition has started.`。保证以下全部操作均在开始比赛之后出现。
 
 ### 提交题目
 
@@ -168,7 +168,7 @@ QUERY_SUBMISSION Opelucid_Gym WHERE PROBLEM=M AND STATUS=Runtime_Error //查询O
 END
 ```
 
-​	结束比赛。需输出`[Info]Competition ends.`保证结束比赛时比赛已经开始、排行榜不处于封榜状态，且之后没有任何操作。
+​	结束比赛。需输出`[Info]Competition ends.`保证结束比赛时排行榜不处于封榜状态，且之后没有任何操作。
 ​	
 
 ## 5 数据范围
