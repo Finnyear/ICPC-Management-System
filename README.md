@@ -152,11 +152,11 @@ QUERY_SUBMISSION Pokemon_League WHERE PROBLEM=A // 查询Pokemon_League的所有
 QUERY_SUBMISSION Opelucid_Gym WHERE STATUS=Runtime_Error AND PROBLEM=C //查询Opelucid_Gym队所有C题状态为Runtime_Error的提交
 QUERY_SUBMISSION Opelucid_Gym WHERE PROBLEM=M AND STATUS=Runtime_Error //查询Opelucid_Gym队所有M题状态为Runtime_Error的提交
 ```
-成功则输出`[Info]Complete query submission.`,若无满足条件的提交，输出`Cannot find any submission.`。否则输出若干行，每行以
+成功则输出`[Info]Complete query submission.`,若无满足条件的提交，输出`Cannot find any submission.`。否则输出一行表示提交时间最晚的一次满足条件的提交，以
 
 	team_name problem_name status time
 
-的格式输出。time为该次提交的时间。注意输出按照提交顺序的升序排列（即先提交的记录最先输出）。
+的格式输出。time为该次提交的时间。
 
 若队伍不存在，则输出`[Error]Query submission failed: cannot find the team.`。
 
